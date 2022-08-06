@@ -36,6 +36,15 @@ else
 	PS1="$PS1"'$ '                 # prompt: always $
 fi
 
+fast_git_ps1 ()                                                                              
+{                                                                                            
+    printf -- "$(git branch 2>/dev/null | grep -e '\* ' | sed 's/^..\(.*\)/ {\1} /')"    
+}                                                                                            
+
+PS1='\[\033]0;$MSYSTEM:\w\007                                                                
+\033[32m\]\u@\h \[\033[33m\w$(fast_git_ps1)\033[0m\]                                         
+$ '  
+
 MSYS2_PS1="$PS1"               # for detection by MSYS2 SDK's bash.basrc
 
 # Evaluate all user-specific Bash completion scripts (if any)
