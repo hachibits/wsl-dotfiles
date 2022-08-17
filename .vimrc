@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -84,4 +84,22 @@ if has("autocmd")
       \ highlight WhiteSpaceEOL ctermbg=red |
       \ match WhiteSpaceEOL /\(^+.*\)\@<=\s\+$/
 endif " has("autocmd")
+
+"let s:win32yank = '~/bin/win32yank.exe'
+"let g:clipboard = {
+"        \  'name' : 'wsl',
+"      \  'copy' : {
+"        \    '+' : s:win32yank..' -i --crlf',
+"      \    '*' : s:win32yank..' -i --crlf',
+"      \  },
+"      \  'paste' : {
+"        \    '+' : s:win32yank..' -o --lf',
+"      \    '*' : s:win32yank..' -o --lf',
+"      \  },
+"      \}
+"unlet s:win32yank
+
+autocmd BufWritePre *.py :%s/\s\+$//e "strip trailing whitespace
+autocmd BufNewFile,BufRead *.ts set syntax=javascript
+
 set t_u7=

@@ -8,20 +8,28 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# man bash(1)
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=
+export HISTFILESIZE=
+export HISTTIMEFORMAT="%Y/%m/%d %H:%M:%S:   "
+[ -z "$TMPDIR" ] && TMPDIR=/tmp
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# Global environment variables
+export EDITOR=vim
+export PATH=~/bin:$PATH
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Command line vi mode
+set -o vi
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -87,10 +95,16 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
+# some more aliases
+alias rm='rm -i'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias mv='mv -i'
+alias gpob='git push origin $(git branch --show-current)'
+alias c='cd /mnt/c/Users/Oliver.Xu'
+alias lsd='ls /mnt/c/Users/Oliver.Xu/Documents'
+alias cdd='cd /mnt/c/Users/Oliver.Xu/Documents'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -104,9 +118,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-
-alias c='cd /mnt/c/Users/Oliver.Xu'
-export EDITOR=vim
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
