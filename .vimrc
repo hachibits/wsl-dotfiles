@@ -4,6 +4,7 @@ Plug 'preservim/nerdtree'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -17,7 +18,7 @@ set smartcase
 set incsearch
 set cursorline
 set ruler
-set nu rnu
+set nu
 set ai                          " set auto-indenting on for programming
 set modeline
 set bs=2
@@ -28,18 +29,6 @@ set laststatus=2                " make the last line where the status is two lin
 set showmode                    " show the current mode
 set clipboard=unnamed           " set clipboard to unnamed to access the system clipboard under windows
 set wildmode=list:longest,longest:full   " Better command line completion
-
-" Show EOL type and last modified timestamp, right after the filename
-" Set the statusline
-set statusline=%f               " filename relative to current $PWD
-set statusline+=%h              " help file flag
-set statusline+=%m              " modified flag
-set statusline+=%r              " readonly flag
-set statusline+=\ [%{&ff}]      " Fileformat [unix]/[dos] etc...
-set statusline+=\ (%{strftime(\"%H:%M\ %d/%m/%Y\",getftime(expand(\"%:p\")))})  " last modified timestamp
-set statusline+=%=              " Rest: right align
-set statusline+=%l,%c%V         " Position in buffer: linenumber, column, virtual column
-set statusline+=\ %P            " Position in buffer: Percentage
 
 if &term =~ 'xterm-256color'    " mintty identifies itself as xterm-compatible
   if &t_Co == 8
@@ -57,6 +46,23 @@ set smartindent
 set t_Co=256
 let g:seoul256_background = 233
 colo seoul256
+
+hi statusline ctermfg=15 guifg=white ctermbg=NONE guibg=NONE
+
+function! s:statusline_expr()
+  let mod="%m"
+  let ro="%{&readonly ? '[RO]' : ''}"
+  let ft="%{len(&filetype) ? '['.&filetype.']' : ''}"
+  let ff="\ [%{&ff}]"
+  let fug="%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+  let sep="%="
+  let pos="%-12(%l : %c%V%)"
+  let pct='%P'
+
+  return '[%n] %F %<'.mod.ro.ft.ff.fug.sep.pos.'%*'.pct
+endfunction
+
+let &statusline=s:statusline_expr()
 "------------------------------------------------------------------------------
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -78,3 +84,4 @@ if has("autocmd")
       \ highlight WhiteSpaceEOL ctermbg=red |
       \ match WhiteSpaceEOL /\(^+.*\)\@<=\s\+$/
 endif " has("autocmd")
+set t_u7=
