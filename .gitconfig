@@ -1,0 +1,11 @@
+[alias]
+  pr  = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+  pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+[user]
+	name = Oliver Xu
+	email = oliver.xu@arup.com
+	signingkey = A8A79C42DC5AB5CC
+[credential]
+	helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe
+[commit]
+	gpgsign = true

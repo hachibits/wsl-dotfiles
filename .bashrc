@@ -102,9 +102,10 @@ alias la='ls -A'
 alias l='ls -CF'
 alias mv='mv -i'
 alias gpob='git push origin $(git branch --show-current)'
-alias c='cd /mnt/c/Users/Oliver.Xu'
-alias lsd='ls /mnt/c/Users/Oliver.Xu/Documents'
-alias cdd='cd /mnt/c/Users/Oliver.Xu/Documents'
+alias c='/mnt/c/Users/Oliver.Xu'
+alias lsd='ls /mnt/c/Users/Oliver.Xu/Documents/Sites'
+alias ccd='cd /mnt/c/Users/Oliver.Xu/Documents/Sites'
+alias vi='nvim'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -134,3 +135,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 [ -f "/home/olxu/bin/win-sudo/s/path.sh" ] && source "/home/olxu/bin/win-sudo/s/path.sh"
+
+export GPG_TTY=$(tty)
