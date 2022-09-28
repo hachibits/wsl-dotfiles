@@ -1,0 +1,7 @@
+# git-bash prompt
+$GIT_HOME/etc/profile.d/git-prompt.sh
+
+# Clear npm cache
+rm ./package-lock.json
+rm -r ./node_modules
+npm cache clear --force
