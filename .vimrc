@@ -85,19 +85,17 @@ if has("autocmd")
       \ match WhiteSpaceEOL /\(^+.*\)\@<=\s\+$/
 endif " has("autocmd")
 
-"let s:win32yank = '~/bin/win32yank.exe'
-"let g:clipboard = {
-"        \  'name' : 'wsl',
-"      \  'copy' : {
-"        \    '+' : s:win32yank..' -i --crlf',
-"      \    '*' : s:win32yank..' -i --crlf',
-"      \  },
-"      \  'paste' : {
-"        \    '+' : s:win32yank..' -o --lf',
-"      \    '*' : s:win32yank..' -o --lf',
-"      \  },
-"      \}
-"unlet s:win32yank
+" Yank to clipboard
+noremap <leader>y "+y
+
+" WSL yank support
+let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+if executable(s:clip)
+	augroup WSLYank
+		autocmd!
+		autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+	augroup END
+endif
 
 autocmd BufWritePre *.py :%s/\s\+$//e "strip trailing whitespace
 autocmd BufNewFile,BufRead *.ts set syntax=javascript
