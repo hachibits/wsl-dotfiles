@@ -9,3 +9,8 @@ npm cache clear --force
 npm config set registry http://registry.npmjs.org/
 npm config set proxy http://usr:pwd@host:port
 npm config set https-proxy http://usr:pwd@host:port
+
+# From: <https://stackoverflow.com/a/51669404>
+dos_path_to_linux(){
+  sed -e 's?\\?/?g' -e' s?[cC]:?/mnt/c?' <<<"$1"
+}
