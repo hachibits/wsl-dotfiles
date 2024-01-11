@@ -1,3 +1,5 @@
+# $GIT_HOME/etc/profile.d/git-prompt.sh
+
 if test -f /etc/profile.d/git-sdk.sh
 then
 	TITLEPREFIX=SDK-${MSYSTEM#MINGW}
